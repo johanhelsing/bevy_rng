@@ -46,9 +46,9 @@ fn main() {
 }
 
 fn random_number_1(mut rng: Local<Rng>) {
-    println!("1: {}", rng.gen::<f64>());
+    println!("1: {}", rng.next_f64());
 }
 
 fn random_number_2(mut rng: Local<Rng>) {
-    println!("2: {}", rng.gen::<f64>());
+    println!("2: {}", rng.next_f64());
 }

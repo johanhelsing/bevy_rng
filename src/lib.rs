@@ -1,7 +1,6 @@
-use rand::SeedableRng;
+use rand::{RngCore, SeedableRng};
 use rand_seeder::Seeder;
 use rand_xoshiro::Xoshiro256StarStar;
-use std::ops::{Deref, DerefMut};
 
 #[cfg(all(feature = "bevy-nightly", not(feature = "bevy-stable")))]
 use bevy_nightly as bevy;
@@ -89,17 +88,31 @@ pub struct Rng {
     inner: Xoshiro256StarStar,
 }
 
-impl Deref for Rng {
-    type Target = Xoshiro256StarStar;
-
-    fn deref(&self) -> &Self::Target {
-        &self.inner
+impl Rng {
+    pub fn next_u32(&mut self) -> u32 {
+        self.inner.next_u32()
     }
-}
+    pub fn next_u64(&mut self) -> u64 {
+        self.inner.next_u64()
+    }
+    pub fn next_f32(&mut self) -> f32 {
+        self.inner.gen::<f32>()
+    }
+    pub fn next_f64(&mut self) -> f64 {
+        self.inner.gen::<f64>()
+    }
 
-impl DerefMut for Rng {
-    fn deref_mut(&mut self) -> &mut Self::Target {
-        &mut self.inner
+    pub fn next_u32_range(&mut self, min: u32, max: u32) -> u32 {
+        (self.next_f32() * (max - min) as f32) as u32 + min
+    }
+    pub fn next_u64_range(&mut self, min: u64, max: u64) -> u64 {
+        (self.next_f64() * (max - min) as f64) as u64 + min
+    }
+    pub fn next_f32_range(&mut self, min: f32, max: f32) -> f32 {
+        self.next_f32() * (max - min) + min
+    }
+    pub fn next_f64_range(&mut self, min: f64, max: f64) -> f64 {
+        self.next_f64() * (max - min) + min
     }
 }
 
