@@ -10,7 +10,6 @@ use bevy_stable as bevy;
 
 use bevy::prelude::*;
 
-
 pub use rand::Rng as _;
 
 /// `RngPlugin` allows you to inject a (optionally seeded) random number
@@ -106,8 +105,9 @@ impl DerefMut for Rng {
 impl FromWorld for Rng {
     fn from_world(world: &mut World) -> Self {
         let inner = match world.get_resource::<RootRng>() {
-            Some(rng) => Xoshiro256StarStar::from_rng(rng.rng.clone())
-                .expect("failed to create rng"),
+            Some(rng) => {
+                Xoshiro256StarStar::from_rng(rng.rng.clone()).expect("failed to create rng")
+            }
             None => Xoshiro256StarStar::from_entropy(),
         };
 
