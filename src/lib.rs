@@ -63,7 +63,7 @@ enum Seed {
 }
 
 impl Plugin for RngPlugin {
-    fn build(&self, app: &mut AppBuilder) {
+    fn build(&self, app: &mut App) {
         let rng = match &self.seed {
             Some(Seed::String(seed)) => Seeder::from(seed.as_str()).make_rng(),
             Some(Seed::Number(num)) => Xoshiro256StarStar::seed_from_u64(*num),
