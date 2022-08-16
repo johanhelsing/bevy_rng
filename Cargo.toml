@@ -1,6 +1,6 @@
 [package]
 name = "bevy_rng"
-version = "0.3.1"
+version = "0.4.0"
 authors = ["Jean Mertz <git@jeanmertz.com>"]
 edition = "2021"
 repository = "https://github.com/rustic-games/bevy_rng"
@@ -11,4 +11,4 @@ license-file = "LICENSE"
 rand = { version = "0.8", default-features = false, features = ["getrandom"] }
 rand_seeder = "0.2"
 rand_xoshiro = "0.6"
-bevy = { version = "0.7", default-features = false }
+bevy = { version = "0.8", default-features = false }
